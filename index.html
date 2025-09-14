@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ruleta del CNB</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Ruleta del CNB" class="logo-header">
+  </header>
+
+
+  <main class="wrap">
+    <section class="left">
+      <div class="canvas-wrap">
+        <canvas id="wheel"></canvas>
+        <div class="arrow" aria-hidden="true"></div>
+      </div>
+
+      <p id="result" class="result" aria-live="polite"></p>
+    </section>
+
+    <aside class="right">
+      <h2>Opciones</h2>
+      <textarea id="optionsInput" rows="10" placeholder="Escribe una opción por línea..."></textarea>
+      <div class="edit-buttons">
+        <button id="applyBtn">Aplicar</button>
+      </div>
+      <div class="spin-button-wrapper">
+        <button id="spinBtn" class="big-spin-btn">🎲 Girar 🎲</button>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    <small>Hecho para dinámicas — móvil/ iPad friendly. Añadir a pantalla de inicio en Safari: compartir → "Añadir a pantalla de inicio".</small>
+  </footer>
+
+  <script src="script.js"></script>
+  <div id="resultModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <p id="modalText"></p>
+    </div>
+  </div>
+
+</body>
+</html>

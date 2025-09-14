@@ -1,0 +1,273 @@
+:root{
+  --bg: #f7f7fb;
+  --accent: #577590;
+  --card: #ffffff;
+  --text: #222;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+header{
+  text-align:center;
+  padding:14px 10px;
+}
+.hint{ margin:6px 0 0; color:#555; font-size:0.95rem }
+
+.wrap{
+  display:flex;
+  gap:20px;
+  padding:18px;
+  align-items:flex-start;
+  width:100%;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+/* Left column: canvas + controls */
+.left{
+  flex:1 1 600px;
+  background:var(--card);
+  padding:14px;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(50,50,93,0.08);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.canvas-wrap{
+  position:relative;
+  width:100%;
+  max-width:640px;
+  margin:6px 0;
+  display:flex;
+  justify-content:center;
+}
+
+canvas#wheel{
+  width:100%;
+  height:auto;
+  max-width:640px;
+  border-radius:50%;
+  touch-action: manipulation;
+  user-select:none;
+  background:transparent;
+  display:block;
+}
+
+.arrow {
+  position: absolute;
+  top: -20px; /* ajusta según el tamaño del emoji */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3.5rem;  /* tamaño del emoji */
+  pointer-events: none;
+}
+
+.arrow::after {
+  content: "👇🏽";  /* reemplaza por el emoji que quieras */
+}
+
+#applyBtn {
+  background: #d3d3d3;   /* gris claro */
+  color: #333;            /* texto más oscuro para contraste */
+  font-weight: 600;
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  flex: 1;               /* si está en un flex, ocupa el espacio disponible */
+  transition: background 0.2s;
+}
+
+#applyBtn:hover {
+  background: #c0c0c0;   /* ligeramente más oscuro al pasar el cursor */
+}
+
+
+
+/* Controls */
+.controls{
+  width:100%;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.controls button{
+  background:var(--accent);
+  color:white;
+  border:none;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+.controls input[type=range]{ width:120px; }
+
+/* Result */
+.result{
+  margin:10px 0 0;
+  font-size:1.15rem;
+  font-weight:700;
+  min-height:1.2em;
+  text-align:center;
+}
+
+/* Right column: editor */
+.right{
+  width:320px;
+  background:var(--card);
+  padding:14px;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(50,50,93,0.06);
+}
+.right h2{ margin-top:0; }
+textarea{
+  width:100%;
+  resize:vertical;
+  font-size:15px;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #e5e7eb;
+  min-height:220px;
+}
+.edit-buttons{ display:flex; gap:8px; margin-top:10px; }
+.edit-buttons button{
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  background:#2b7a78;
+  color:white;
+  cursor:pointer;
+}
+
+.spin-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.big-spin-btn {
+  background: var(--accent);
+  color: white;
+  font-size: 1.5rem;  /* más grande */
+  padding: 16px 28px;  /* más alto y ancho */
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  width: 80%;  /* opcional: que ocupe casi todo el ancho */
+  max-width: 300px;
+}
+
+/* Modal de fondo */
+.modal {
+  display: none; /* oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: var(--card);
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 1020px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  animation: slideUp 0.4s ease;
+}
+
+/* Botón cerrar */
+.close {
+  color: #555;
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Animaciones */
+@keyframes fadeIn { from {opacity:0} to {opacity:1} }
+@keyframes slideUp { from {transform: translateY(50px); opacity:0} to {transform: translateY(0); opacity:1} }
+
+#modalTitle {
+  font-size: 3rem;       /* tamaño del título “Resultado:” */
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+#modalText {
+  font-size: 6rem;         /* tamaño grande pero razonable */
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  word-wrap: break-word;    /* evita que textos largos se salgan del cuadro */
+  line-height: 1.2;
+}
+
+@media (max-width: 480px) {
+  #modalText {
+    font-size: 1.5rem;
+  }
+}
+
+header {
+  text-align: center;
+  padding: 30px 10px; /* more vertical space for logo */
+}
+
+.logo-header {
+  max-width: 450px;   /* adjust as needed */
+  width: 80%;
+  height: auto;
+  display: inline-block;
+}
+
+.canvas-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 30px 0 6px; /* extra top margin */
+  display: flex;
+  justify-content: center;
+}
+
+
+footer{
+  margin-top:auto;
+  padding:14px;
+  text-align:center;
+  color:#666;
+  font-size:0.9rem;
+}
+
+/* Responsive */
+@media (max-width:880px){
+  .wrap{ flex-direction:column; padding:14px; }
+  .right{ width:100%; order:2; }
+  .left{ order:1; }
+}
